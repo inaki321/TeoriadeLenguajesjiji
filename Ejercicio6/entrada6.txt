@@ -1,0 +1,14 @@
+(*
+Comentario
+
+de lineas 
+salteadas
+
+*)
+
+y
+inicio
+#Comment
+identificador_variable
+5.3
+4 23.5e
