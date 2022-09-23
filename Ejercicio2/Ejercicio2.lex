@@ -7,6 +7,7 @@ int N1,N2;
 %}
 %option pointer
 %option noyywrap
+%option outfile="ej2.c"
 
 DIGITO [0-9]
 %%

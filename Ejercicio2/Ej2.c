@@ -1,5 +1,6 @@
+#line 1 "ej2.c"
 
-#line 2 "lex.yy.c"
+#line 3 "ej2.c"
 
 #define  YY_INT_ALIGNED short int
 
@@ -460,8 +461,8 @@ char *yytext;
 #include <stdlib.h>
 
 int N1,N2;
-#line 463 "lex.yy.c"
-#line 464 "lex.yy.c"
+#line 464 "ej2.c"
+#line 465 "ej2.c"
 
 #define INITIAL 0
 
@@ -684,9 +685,9 @@ YY_DECL
 		}
 
 	{
-#line 12 "Ejercicio2.lex"
+#line 13 "Ejercicio2.lex"
 
-#line 689 "lex.yy.c"
+#line 690 "ej2.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -756,7 +757,7 @@ YY_LINENO_REWIND_TO(yy_cp - 1);
 (yy_c_buf_p) = yy_cp -= 1;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 13 "Ejercicio2.lex"
+#line 14 "Ejercicio2.lex"
 {
     char *end;
     int num = strtol(yytext, &end, 10);
@@ -771,10 +772,10 @@ YY_RULE_SETUP
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 25 "Ejercicio2.lex"
+#line 26 "Ejercicio2.lex"
 ECHO;
 	YY_BREAK
-#line 777 "lex.yy.c"
+#line 778 "ej2.c"
 			case YY_STATE_EOF(INITIAL):
 				yyterminate();
 
@@ -1752,7 +1753,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 25 "Ejercicio2.lex"
+#line 26 "Ejercicio2.lex"
 
 int main(int argc, char * argv[])
 {
