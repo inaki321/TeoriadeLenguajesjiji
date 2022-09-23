@@ -1,57 +1,68 @@
 %{
-
-
-#pragma warning(disable: 4996 6011 6385)
-
-#include <malloc.h> // para las definiciones de malloc, free que provocan warning
-#include <stdlib.h> // para las definiciones de exit que provocan warning
 #include <stdio.h>
+#include <errno.h>
+#include <stdlib.h>
 
-unsigned int n1;
-unsigned int n2;
-
+int N1,N2;
 %}
-
-%option outfile="Ejercicio2.c"
+%option pointer
 %option noyywrap
 
-NO_CERO [1-9]
-DIGITOS [0-9]
-NUMERO_ENTERO {NO_CERO}{DIGITOS}*
-
-
+DIGITO [0-9]
 %%
-
-{NUMERO_ENTERO}	       {
-				int aux = atoi(yytext);
-				if (aux%n2==0){
-					aux += n1;
-					fprintf(yyout, "%i", aux);
-				}
-			}
-
-\t			//escribir en txt
-
-.			printf("Caracter invalido%s\n",yytext);
-
-%%
-
-int main(int argc, char * argv[])
-{
-    	
-    	printf("Introduce el primer numero: ");
-	scanf("%u",n1);
-	printf("Introduce el segundo numero: ");
-	scanf("%u",n2);
-    	
-		yyout = fopen ("output.txt", "w+");
-        yyin = fopen( argv[0], "r" );
+[^\n]{DIGITO}+/[[:blank:]\n]   {
+    char *end;
+    int num = strtol(yytext, &end, 10);
+    if (yytext == end)
+        REJECT;
     
-    
-    	yylex();
-
-    	return(0);
+    if ( (num % N2) == 0)
+        fprintf(yyout, " %d", (num + N1));
+    else
+        ECHO;
 }
 
+%%
+int main(int argc, char * argv[])
+{
+    	++argv;
+    	--argc;  
+    	if (argc < 4)
+        {
+            puts("Use:\tflex-ej2 <archivo-entrada> <archivo-salida> <N1> <N2>\n");
+            return(EINVAL);
+        }
 
+        // parse arguments
+        yyin = fopen( argv[0], "r" );
+        if (yyin == NULL)
+        {
+            errno = EIO;
+            return(errno);
+        }
+        yyout = fopen( argv[1], "w" );
+        if (yyout == NULL)
+        {
+            errno = EIO;
+            return(errno);
+        }
+        char *end;
+        N1 = strtol(argv[2], &end, 10);
+        if (argv[2] == end)
+        {
+            errno = EINVAL;
+            perror("<N1> debe ser un entero");
+            return(errno);
+        }
+        N2 = strtol(argv[3], &end, 10);
+        if (argv[3] == end)
+        {
+            errno = EINVAL;
+            perror("<N2> debe ser un entero");
+            return(errno);
+        }
 
+    
+    	yylex();
+    	return(0);
+}
